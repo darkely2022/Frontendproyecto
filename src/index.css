@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.fondo{
+  color: white;
+  padding: 0;
+  margin-bottom: 0;
+  text-align: center;
+}
+.fondo_h1{
+  margin:0;
+}
+.grid-container{
+  margin-top: 0;
+  display: grid;
+  grid-template-areas: 'menu' 'busqueda'  'main' 'footer';
+}  
+.alumno_ini{
+  width: 100%;
+  height:100%;
+}
+.propietario_ini{
+  width: 100%;
+  height: 100%;
+}
+.propiedad_ini{
+  width: 90%;
+  height: 90%;
+}
+.active {
+  color: darkgreen;
+  }
+.alinea_centro{
+  text-align: center;
+}
+.filtroderecha{
+  display: flex;
+  flex-direction: row;
+    
+}
+.filtrosubir{
+  margin-top: 0%;
+}
+  
+ 
