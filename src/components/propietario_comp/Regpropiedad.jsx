@@ -24,7 +24,7 @@ const Regpropiedad = ({onSubmit}) => {
         onSubmit({
             nombrepropiedad:nombrepropiedad,
             direccionpropiedad:direccionpropiedad,
-            comuna: 1,
+            comuna: comunapropiedad,
             numhabitacion: numhabitacion,
             metrospropiedad: metrospropiedad,
             valorpropiedad: valorpropiedad
@@ -67,7 +67,8 @@ const Regpropiedad = ({onSubmit}) => {
                             </div>
                             <div>
                                 <Form.Label htmlFor="inputcomunapropiedad">Comuna</Form.Label>
-                                <Form.Select aria-label="Default select example">
+                                <Form.Select aria-label="Default select example" onChange={(e)=>{  setComunaPropiedad(e.target.value)
+                                                console.log(e.target.value)}}>
                                     <option>Seleccionar comuna</option>
                                     <option value="1">Providencia</option>
                                     <option value="2">Santiago</option>
@@ -75,7 +76,8 @@ const Regpropiedad = ({onSubmit}) => {
                             </div>
                             <div>
                                 <Form.Label htmlFor="inputhabpropiedad">Número de habitaciones</Form.Label>
-                                <Form.Select aria-label="Default select example">
+                                <Form.Select aria-label="Default select example"  onChange={(e)=>{  setNumHabitacion(e.target.value)
+                                                console.log(e.target.value)}}>
                                     <option>Seleccionar cantidad habitaciones</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>

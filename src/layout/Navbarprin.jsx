@@ -43,6 +43,7 @@ const Navbarprin = () => {
         if (listaFiltradaPro.length > 0) {
             alert("La persona ya existe")
             navigate(`/vistapropietario/${rutlogin}`);
+            
         }
         else {
             if (listaFiltradaAlu.length > 0) {

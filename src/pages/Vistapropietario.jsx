@@ -15,7 +15,7 @@ const { Context } = Contextpropiedad;
 const Vistapropietario = () => {
 
   const [internalRoute, setIntervalRoute] = useState('ingresar-propiedad');
-  const { idPropietario } = useParams();
+  const { rutlogin } = useParams();
   const navigate = useNavigate();
 
   const { setPublicaciones , publicaciones} = useContext(Context);
@@ -43,7 +43,7 @@ const Vistapropietario = () => {
       const propiedadCreada = CrearPropiedadApi(PropiedadporCrear)
       CrearPropiedadContext(PropiedadporCrear)
       console.log('idpropietario al crear propiedad')
-      console.log(idPropietario)
+      console.log(rutlogin)
       alert('Datos Grabados');
     } catch (error) {
       console.log(error)
@@ -97,7 +97,7 @@ const Vistapropietario = () => {
           <Row>
             <Col>
               
-              <Datospropietario idPropietario={idPropietario} />
+              <Datospropietario rutlogin={rutlogin} />
 
             </Col>
           </Row>

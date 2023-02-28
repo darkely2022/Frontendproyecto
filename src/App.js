@@ -26,8 +26,8 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/registro" element={<Registro/>} />
             <Route path="/buscapropiedad" element={<Buscapropiedad/>} />
-            <Route path="/vistapropietario/:id" element={<Vistapropietario/>} />
-            <Route path="/vistaalumno/:id" element={<Vistaalumno/>} />           
+            <Route path="/vistapropietario/:rutlogin" element={<Vistapropietario/>} />
+            <Route path="/vistaalumno/:rutlogin" element={<Vistaalumno/>} />           
           </Routes>
       </BrowserRouter>
       </Provider>

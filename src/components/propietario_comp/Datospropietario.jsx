@@ -9,7 +9,7 @@ const { Context } = ContextOrigin;
 const Datospropietario = (props) => {
 
     const { Propietarios, setPropietarios } = useContext(Context)
-    const listaFiltradaPro = Propietarios.filter(el => el.rutPropietario === props.idPropietario)
+    const listaFiltradaPro = Propietarios.filter(el => el.rutPropietario === props.rutlogin)
     const [nombrePropietario, setNombrePropietario] = useState('');
     const [apellidoPropietario, setApellidoPropietario] = useState('');
     const [rutPropietario, setRutPropietario] = useState(props.idPropietario);
@@ -21,8 +21,7 @@ const Datospropietario = (props) => {
     const validarDatosPropietario = (e) => {
         e.preventDefault();
         //Validación;
-
-
+        
         if (passwordPropietario === '' || emailPropietario === '') {
             setError(true);
             console.log('idpro')
@@ -34,11 +33,10 @@ const Datospropietario = (props) => {
 
     };
 
-
-
-
     const ActualizarPropietario = () => {
         if (error === 'false') {
+            alert('Datos no actualizados')
+        }else{
             alert('Datos actualizados')
         }
     }
@@ -55,19 +53,40 @@ const Datospropietario = (props) => {
                     <Col xs={6}>
                         <img src={foto_propietario} className="propietario_ini" alt="propietario" />
                     </Col>
+                    <Col xs={6}>
                     {listaFiltradaPro.map((dato) => (
-
-                        <tr key={dato.rutPropietario}>
-                            <label>{dato.nombrePropietario}</label>
-                            <label>{dato.apellidoPropietario}</label>
-                            <label>{dato.rutPropietario}</label>
-
-
-                        </tr>
+                        <div className="form-group">
+                       
+                            <label> Rut </label>
+                                <input
+                                    type="text"
+                                    name="rutpropietario"
+                                    className="form-control"
+                                    readOnly
+                                    value= {dato.rutPropietario}
+                                />
+                            <label>Nombre </label>
+                            <input
+                                    type="text"
+                                    name="nombrepropietario"
+                                    className="form-control"
+                                    readOnly
+                                    value= {dato.nombrePropietario}
+                                />
+                            <label>Apellido</label>
+                            <input
+                                    type="text"
+                                    name="apellidopropietario"
+                                    className="form-control"
+                                    readOnly
+                                    value=  {dato.apellidoPropietario}
+                                />
+                       
+                        </div>
 
 
                     ))}
-                    <Col xs={6}>
+                   
                         <form className="formulario" onSubmit={validarDatosPropietario}>
                             <div className="form-group">
                                 <label>Password</label>
