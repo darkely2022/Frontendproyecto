@@ -5,18 +5,38 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Filtropropiedad from '../components/Filtropropiedades';
-
+import Publicacion from '../components/Publicacion';
 import Departamento from '../assets/imgs/depto1.jpg';
+import { useContext, useState } from "react";
+import ContextOrigin from "../context/Context";
+const { Context } = ContextOrigin;
 
 const Buscapropiedad = () => {
+    const { publicaciones } = useContext(Context);
+    const [Listado, setListado] = useState([]);
 
+    const Filtros = (Parametros) => {
+        const { comuna, numhabitacion } = Parametros
+
+        const publicacionesFiltradas = publicaciones.filter((p) =>
+            p.numhabitacion == numhabitacion
+        );
+        setListado([...Listado, publicacionesFiltradas]);
+        console.log('publicaciones filtradas')
+        console.log(publicacionesFiltradas)
+        console.log(numhabitacion)
+    }
+
+
+    //const publicacionesFiltradas = publicaciones.filter((p) =>
+    // p.numhabitacion ===numhabitacion);
     return (
         <>
             <Container fluid>
 
                 <Row>
                     <Col xs={12}>
-                        <Filtropropiedad></Filtropropiedad>
+                        <Filtropropiedad onSubmit={Filtros} ></Filtropropiedad>
                     </Col>
                 </Row>
                 <Row>
@@ -57,7 +77,14 @@ const Buscapropiedad = () => {
                         <h5>A continuación te presentamos las mejores ofertas para arrendar, recuerda revisar el detalle de las descripciones para realizar la reserva</h5>
                         <Row>
                             <Col className='col-sm-3'>
-                                <Card style={{ width: '18rem' }}>
+                                <Row>
+                                    <Col>
+                                        <div className="publicaciones">
+                                            {publicaciones.map((p, i) => {
+                                                return <Publicacion publicacion={p} key={i} />;
+                                            })}
+                                        </div>
+                                        {/*<Card style={{ width: '18rem' }}>
                                     <Card.Img variant="top" src={Departamento} />
                                     <Card.Body>
                                         <Card.Title>Card Title</Card.Title>
@@ -67,39 +94,13 @@ const Buscapropiedad = () => {
                                         </Card.Text>
                                         <Button variant="primary">Descripción</Button>
                                     </Card.Body>
-                                </Card>
+                                </Card>*/}
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col>
-                                <Card style={{ width: '18rem' }}>
-                                    <Card.Img variant="top" src={Departamento} />
-                                    <Card.Body>
-                                        <Card.Title>Card Title</Card.Title>
-                                        <Card.Text>
-                                            Some quick example text to build on the card title and make up the
-                                            bulk of the card's content.
-                                        </Card.Text>
-                                        <Button variant="primary">Descripción</Button>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Card style={{ width: '18rem' }}>
-                                    <Card.Img variant="top" src={Departamento} />
-                                    <Card.Body>
-                                        <Card.Title>Card Title</Card.Title>
-                                        <Card.Text>
-                                            Some quick example text to build on the card title and make up the
-                                            bulk of the card's content.
-                                        </Card.Text>
-                                        <Button variant="primary">Descripción</Button>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
+
+
                     </Col>
 
                 </Row>

@@ -1,6 +1,6 @@
-import { useState , useEffect} from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { redirect } from "react-router-dom";
+//import { redirect } from "react-router-dom";
 
 import Navbaralumno from "./alumno_sub/Navbaralumno";
 
@@ -27,7 +27,7 @@ const Vistaalumno = () => {
 
     return (
     <>
-        <Container fluid ="md">
+        <Container >
         {/*{userContex_rol==='estudiante'
             (<Navbarpropietario/>)
           } */}
