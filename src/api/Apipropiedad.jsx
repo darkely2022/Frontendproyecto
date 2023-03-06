@@ -24,9 +24,12 @@ const mockPropiedades =
 //const [listaPropiedades,setlistaPropiedades]=useState(mockPropiedades) 
 
 
-export const CrearPropiedadApi = (PropiedadporCrear) => {
-    /* const resp = await fetch('/propiedades');
-    const data = await resp.json(); */
+export const CrearPropiedadApi = async (PropiedadporCrear) => {
+    const resp = await fetch(`${process.env.REACT_APP_BASE_URL}/propiedades`);
+    const data = await resp.json();
+    console.log(data);
+
+   
        
     const{nombrepropiedad,direccionpropiedad,comuna,numhabitacion,metrospropiedad,valorpropiedad}=PropiedadporCrear
     mockPropiedades.push(

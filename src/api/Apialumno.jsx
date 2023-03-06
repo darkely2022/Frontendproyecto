@@ -30,8 +30,9 @@ const mockRelacion = [
     }
 ]
 
-export const CrearAlumnoApi = (AlumnoporCrear) => {
-    /* const resp = await fetch('/propiedades');
+export const CrearAlumnoApi = async(AlumnoporCrear) => {
+     /*const resp = await fetch(`${proccess.env.REACT_APP_BASE_URL}/propiedades`);
+     
     const data = await resp.json(); */
    
     
