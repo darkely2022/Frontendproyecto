@@ -5,13 +5,22 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Buscapropiedad from '../pages/Buscapropiedad';
-
+import { useState, useEffect } from 'react';
 import alumno from '../assets/imgs/alumno.jpg';
 
+import { ListComunas } from "../api/Apicomuna";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const navigate = useNavigate();
+    const[datos, setDatos] = useState([]);
+   // ListComunas();
+
+   /* useEffect(() => {
+        //console.log("hola");
+        ListComunas();
+        }, []);*/
+    
     const irAVistaPropiedad = () => {
         navigate(`/buscapropiedad`);
     };

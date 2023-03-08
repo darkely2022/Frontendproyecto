@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 const Context = createContext(null);
 
 function Provider({ children }) {
+  const [Comunas,setComunas]= useState([]);
   const [Alumnos, setAlumnos] = useState([]);
   const [Propietarios, setPropietarios] = useState([])
   const [session, setSession] = useState(null);
@@ -52,7 +53,9 @@ function Provider({ children }) {
     sessionAlumnos,
     setSessionAlumnos,
     publicaciones,
-    setPublicaciones
+    setPublicaciones,
+    Comunas,
+    setComunas
   };
   return <Context.Provider value={state}>{children}</Context.Provider>;
 }
