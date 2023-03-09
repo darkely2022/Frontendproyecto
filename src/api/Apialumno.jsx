@@ -32,13 +32,32 @@ const mockRelacion = [
 
 export const CrearAlumnoApi = async(AlumnoporCrear) => {
     try {
-        const resp = await fetch(baseUrl);
-        const data = await JSON.stringify(resp); 
-        console.log('API ALUMNO')
-        alert(data);
-       
-        
         const{rut,nombre,apellido,direccion,comuna,correo,rutApoderado,nombreApoderado,apellidoApoderado,direccionApoderado,comunaApoderado,mailApoderado,relacion}=AlumnoporCrear
+         
+        const resp = await fetch('https://backend-arriendo.up.railway.app/alumnos',
+         {
+            method: 'post',
+            body: JSON.stringify( 
+                {
+                    "rutalumno": rut,
+                    "nombrealumno": nombre,
+                    "apellidoalumno":apellido,
+                    "direccionalumno":direccion,
+                    "comunaalumno": comuna,
+                    "correoalumno":correo,
+                    "password": "test"
+                }
+             ),
+            headers:{
+              'Content-Type': 'application/json'
+            }
+          });
+       // const data = await JSON.stringify(resp); 
+        console.log('API ALUMNO')
+        //alert(data);
+              
+        
+       // const{rut,nombre,apellido,direccion,comuna,correo,rutApoderado,nombreApoderado,apellidoApoderado,direccionApoderado,comunaApoderado,mailApoderado,relacion}=AlumnoporCrear
         mockAlumno.push(
           {rutAlumno:rut,nombreAlumno:nombre,apellidoAlumno:apellido,direccionAlumno:direccion, comunaAlumno:comuna,correoAlumno:correo}
         )
