@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 export default function Publicacion({
-  publicacion: { nombrepropiedad, direccionpropiedad, src, comuna, numhabitacion,metrospropiedad,valorpropiedad }
+  publicacion: { nombrepropiedad, direccionpropiedad, src, comunaid, numhabitacion,metrospropiedad,valorpropiedad }
 }) {
   return (
     <Card  style={{ width: '18rem' }}>

@@ -4,6 +4,7 @@ const Context = createContext(null);
 
 function Provider({ children }) {
   const [Comunas, setComunas] = useState([]);
+  //const [publicaciones, setPublicaciones]= useState([]);
   const [Alumnos, setAlumnos] = useState([]);
   const [Propietarios, setPropietarios] = useState([])
   const [session, setSession] = useState(null);
@@ -22,12 +23,27 @@ function Provider({ children }) {
     }
 
   }
+  /*
+  const ListPropiedades = async () => {
+    try {
+
+      const resp = await fetch('https://backend-arriendo.up.railway.app/propiedades');
+      const {propiedades} = await resp.json();
+      setPublicaciones(propiedades);
+      console.log('propiedades',propiedades);
+    } catch (error) {
+      console.log(error)
+    }
+
+  }*/
+
+  
   const [publicaciones, setPublicaciones] = useState([
     {
       folio: "1",
       nombrepropiedad: "Departamento",
       direccionpropiedad: "Barrio las tarrias",
-      comuna: "Providencia",
+      comunaid: "Providencia",
       numhabitacion: 3,
       metrospropiedad: 100,
       valorpropiedad: 200000,
@@ -37,7 +53,7 @@ function Provider({ children }) {
       folio: "2",
       nombrepropiedad: "Departamento",
       direccionpropiedad: "Eleuterio Ramirez",
-      comuna: "Santiago",
+      comunaid: "Santiago",
       numhabitacion: 1,
       metrospropiedad: 50,
       valorpropiedad: 15000,
@@ -47,7 +63,7 @@ function Provider({ children }) {
       folio: "3",
       nombrepropiedad: "Departamento",
       direccionpropiedad: "Guardia Vieja",
-      comuna: "Providencia",
+      comunaid: "Providencia",
       numhabitacion: 3,
       metrospropiedad: 80,
       valorpropiedad: 250000,

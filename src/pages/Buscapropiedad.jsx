@@ -1,30 +1,68 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+//import Button from 'react-bootstrap/Button';
+//import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Filtropropiedad from '../components/Filtropropiedades';
 import Publicacion from '../components/Publicacion';
-import Departamento from '../assets/imgs/depto1.jpg';
-import { useContext, useState } from "react";
+//import Departamento from '../assets/imgs/depto1.jpg';
+import { useContext, useState, useEffect } from "react";
 import ContextOrigin from "../context/Context";
 const { Context } = ContextOrigin;
 
 const Buscapropiedad = () => {
-    const { publicaciones } = useContext(Context);
+    const { publicaciones, setPublicaciones } = useContext(Context);
+
     const [Listado, setListado] = useState([]);
+    const [datosFiltrados, setDatosFiltrados] = useState([]);
+    const [metrospropiedad, setMetros] = useState('');
+
+    useEffect(() => {
+        const fetchDatos = async () => {
+            const resp = await fetch('https://backend-arriendo.up.railway.app/propiedades');
+            const { propiedades } = await resp.json();
+            console.log('propiedades', propiedades);
+            setListado(propiedades);
+
+        }
+        fetchDatos();
+    }, [])
 
     const Filtros = (Parametros) => {
         const { comuna, numhabitacion } = Parametros
 
-        const publicacionesFiltradas = publicaciones.filter((p) =>
+        /*const publicacionesFiltradas = Listado.filter((p) =>
             p.numhabitacion == numhabitacion
-        );
-        setListado([...Listado, publicacionesFiltradas]);
+        );*/
+        const fetchFiltro = async () => {
+            const resp = await fetch('https://backend-arriendo.up.railway.app/propiedades/filtro/1',
+            {
+                method: 'POST',
+                body: JSON.stringify( 
+                    {
+                        "comunaid": comuna,
+                        "numhabitacion": numhabitacion,
+                        "metrospropiedad": metrospropiedad,
+                        "lavanderia": 0,
+                        "bicicletero":0
+                    }
+                 ),
+                headers:{
+                  'Content-Type': 'application/json'
+                }
+              });
+            const { propiedadesfiltradas } = await resp.json();
+            console.log('propiedades filtro', propiedadesfiltradas);
+            setDatosFiltrados(propiedadesfiltradas);
+            console.log('habitaciones', numhabitacion)
+
+        }
+        fetchFiltro();
+        /*setDatosFiltrados(publicacionesFiltradas);
         console.log('publicaciones filtradas')
         console.log(publicacionesFiltradas)
-        console.log(numhabitacion)
+        console.log('habitaciones', numhabitacion)*/
     }
 
 
@@ -47,7 +85,9 @@ const Buscapropiedad = () => {
                                 <Form>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                         <Form.Label>Metros Cuadrados</Form.Label>
-                                        <Form.Control type="metro" placeholder="Ingresar solo números" />
+                                        <Form.Control type="metro" placeholder="Ingresar solo números" 
+                                        onChange={(e) => setMetros(e.target.value)}
+                                        value={metrospropiedad} />
                                     </Form.Group>
                                 </Form>
                             </Col>
@@ -80,9 +120,22 @@ const Buscapropiedad = () => {
                                 <Row>
                                     <Col>
                                         <div className="publicaciones">
-                                            {publicaciones.map((p, i) => {
-                                                return <Publicacion publicacion={p} key={i} />;
-                                            })}
+                                            {datosFiltrados.length > 0 && (
+                                                <div>
+                                                    {datosFiltrados.map((p, i) => {
+                                                        <h1>Filtrado</h1>
+                                                        return <Publicacion publicacion={p} key={i} />;
+                                                    })}
+                                                </div>
+                                            )}
+                                            {datosFiltrados.length <= 0 && (
+                                                <div>
+                                                    <h5>Todo</h5>
+                                                    {Listado.map((p, i) => {
+                                                        return <Publicacion publicacion={p} key={i} />;
+                                                    })}
+                                                </div>
+                                            )}
                                         </div>
                                         {/*<Card style={{ width: '18rem' }}>
                                     <Card.Img variant="top" src={Departamento} />
