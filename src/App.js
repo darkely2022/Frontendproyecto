@@ -25,7 +25,7 @@ function App() {
             <Route path="/" element={<PageLayoutpublico/>} />
             <Route path="/" element={<Home/>} />
             <Route path="/registro" element={<Registro/>} />
-            <Route path="/buscapropiedad" element={<Buscapropiedad/>} />
+            <Route path="/buscapropiedad" element={<Buscapropiedad value={'2'}/>} />
             <Route path="/vistapropietario/:rutlogin" element={<Vistapropietario/>} />
             <Route path="/vistaalumno/:rutlogin" element={<Vistaalumno/>} />           
           </Routes>

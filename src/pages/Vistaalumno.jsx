@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 //import { redirect } from "react-router-dom";
 
 import Navbaralumno from "./alumno_sub/Navbaralumno";
@@ -15,7 +15,7 @@ import Reservaalumno from "../components/alumno_comp/Reservaalumno";
 const Vistaalumno = () => {
 
     const [internalRoute, setIntervalRoute] = useState('datos-alumno');
-   
+    const { rutlogin } = useParams();
 
     const navigate = useNavigate();
     const irAHome = () => {
@@ -39,7 +39,7 @@ const Vistaalumno = () => {
         {internalRoute === 'datos-alumno' && (
           <Row>
             <Col>
-              <Datosalumno />
+              <Datosalumno rutlogin={rutlogin} />
             </Col>
           </Row>
         )
@@ -47,7 +47,7 @@ const Vistaalumno = () => {
         {internalRoute === 'alojamientos' && (
           <Row>
             <Col>
-              <Buscapropiedad />
+              <Buscapropiedad value={'1'}/>
             </Col>
           </Row>
         )

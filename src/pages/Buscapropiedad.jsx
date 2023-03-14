@@ -11,12 +11,13 @@ import { useContext, useState, useEffect } from "react";
 import ContextOrigin from "../context/Context";
 const { Context } = ContextOrigin;
 
-const Buscapropiedad = () => {
+const Buscapropiedad = (props) => {
     const { publicaciones, setPublicaciones } = useContext(Context);
 
     const [Listado, setListado] = useState([]);
     const [datosFiltrados, setDatosFiltrados] = useState([]);
     const [metrospropiedad, setMetros] = useState('');
+    const [tipo, setTipo]= useState('');
 
     useEffect(() => {
         const fetchDatos = async () => {
@@ -24,7 +25,8 @@ const Buscapropiedad = () => {
             const { propiedades } = await resp.json();
             console.log('propiedades', propiedades);
             setListado(propiedades);
-
+            console.log('props buscapropiedad',props)
+            setTipo(props);
         }
         fetchDatos();
     }, [])
@@ -35,6 +37,11 @@ const Buscapropiedad = () => {
         /*const publicacionesFiltradas = Listado.filter((p) =>
             p.numhabitacion == numhabitacion
         );*/
+        if (metrospropiedad ===''){
+            alert('Ingrese metros de propiedad')
+            return;
+        } 
+
         const fetchFiltro = async () => {
             const resp = await fetch('https://backend-arriendo.up.railway.app/propiedades/filtro/1',
             {
@@ -124,7 +131,7 @@ const Buscapropiedad = () => {
                                                 <div>
                                                     {datosFiltrados.map((p, i) => {
                                                         <h1>Filtrado</h1>
-                                                        return <Publicacion publicacion={p} key={i} />;
+                                                        return <Publicacion t={tipo} publicacion={p} key={i} />;
                                                     })}
                                                 </div>
                                             )}
@@ -132,7 +139,7 @@ const Buscapropiedad = () => {
                                                 <div>
                                                     <h5>Todo</h5>
                                                     {Listado.map((p, i) => {
-                                                        return <Publicacion publicacion={p} key={i} />;
+                                                        return <Publicacion t={tipo} publicacion={p} key={i} />;
                                                     })}
                                                 </div>
                                             )}
