@@ -24,20 +24,36 @@ const mockPropiedades =
 //const [listaPropiedades,setlistaPropiedades]=useState(mockPropiedades) 
 
 
-export const CrearPropiedadApi = async (PropiedadporCrear) => {
-    const resp = await fetch(`${process.env.REACT_APP_BASE_URL}/propiedades`);
-    const data = await resp.json();
-    console.log(data);
-
-   
-       
+export const CrearPropiedadApi = async (PropiedadporCrear, rutlogin) => {
     const{nombrepropiedad,direccionpropiedad,comuna,numhabitacion,metrospropiedad,valorpropiedad}=PropiedadporCrear
+
+        const resp = await fetch(`${process.env.REACT_APP_BASE_URL}/propiedades`,
+            {
+                method: 'post',
+                body: JSON.stringify(
+                    {
+                        "folio": 1,
+                        "nombrepropiedad": nombrepropiedad ,
+                        "direccionpropiedad": direccionpropiedad,
+                        "comunaid": comuna,
+                        "numhabitacion": numhabitacion,
+                        "metrospropiedad" :  metrospropiedad, 
+                        "valorpropiedad" : valorpropiedad,
+                        "src": 'https://i.ytimg.com/vi/yiOrvpii7BE/maxresdefault.jpg',
+                        "lavanderia": 0,
+                        "bicicletero": 0, 
+                        "rutpropietarioid": rutlogin
+                    }
+                ),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+       
+    
     mockPropiedades.push(
       {nombrepropiedad:nombrepropiedad,direccionpropiedad:direccionpropiedad, comuna:comuna,numhabitacion:numhabitacion,metrospropiedad:metrospropiedad,valorpropiedad:valorpropiedad}
     )
-    //console.log(PropiedadporCrear) 
-    //console.log(mockPropiedades)
-    //return mockPropiedades;
 }
 
 export const ListarpropiedadesApi=()=>{

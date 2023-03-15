@@ -90,7 +90,7 @@ const Navbarprin = () => {
                             navbarScroll
                         >
                             <Nav.Link onClick={irABuscapropiedades} >Alojamientos</Nav.Link>
-                            <Nav.Link onClick={irARegistro} >Contactanos</Nav.Link>
+                            
                             <Nav.Link onClick={irAHome} >Home</Nav.Link>
                         </Nav>
                         {/* onChange={(e) => setRutlogin(e.target.value)}*/}

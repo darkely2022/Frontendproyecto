@@ -5,7 +5,7 @@ import ContextOrigin from "../context/Context";
 const { Context } = ContextOrigin;
 
 
-const Regpropietario = () => {
+const Regpropietario = ({onSubmit}) => {
     const { setPropietarios, Propietarios } = useContext(Context);
 
     const [user, setUser] = useState({});
@@ -20,6 +20,16 @@ const Regpropietario = () => {
         console.log(user)
         console.log('lista');
         console.log(Propietarios);
+
+        onSubmit({
+            rutpropietario: rutPropietario,
+            nombrepropietario: nombrePropietario,
+            apellidopropietario: apellidoPropietario,
+            direccionpropietario: direccionPropietario,
+            comunapropietario: comunaPropietario,
+            correopropietario: emailPropietario,
+            passwordpropietario: passwordPropietario
+        })
         navigate(`/vistapropietario/${rutPropietario}`);
     };
     const irAVistaPropietario = () => {

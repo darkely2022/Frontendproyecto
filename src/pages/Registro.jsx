@@ -11,6 +11,8 @@ import { useState, useContext } from "react";
 
 import { CrearAlumnoApi } from "../api/Apialumno";
 
+import { CrearPropietarioApi } from "../api/Apipropietario";
+
 import ContextOrigin from "../context/Context";
 const { Context } = ContextOrigin;
 
@@ -60,6 +62,19 @@ const Registro = () => {
         }
     }
 
+    const CrearPropietario = (PropietarioporCrear) => {
+        try {
+            const PropietarioCreado = CrearPropietarioApi(PropietarioporCrear)
+           // CrearAlumnoContex(AlumnoporCrear)
+          //  const AlumnoCreado2 = CrearAlumnoContex(AlumnoporCrear)
+
+            alert('Datos Grabados');
+        } catch (error) {
+            console.log(error)
+            alert('Datos no grabados, verificar completar todos los datos')
+            //setAlumnoContext(null);
+        }
+    }
 
     return (
         <Container >
@@ -100,7 +115,7 @@ const Registro = () => {
                         <div>
                             <Row>
                                 <Col>
-                                    <Regpropietario />
+                                    <Regpropietario onSubmit={CrearPropietario}  />
                                 </Col>
                             </Row>
                         </div>

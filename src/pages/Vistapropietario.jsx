@@ -40,7 +40,7 @@ const Vistapropietario = () => {
 
   const CrearPropiedad = (PropiedadporCrear) => {
     try {
-      const propiedadCreada = CrearPropiedadApi(PropiedadporCrear)
+      const propiedadCreada = CrearPropiedadApi(PropiedadporCrear, rutlogin)
       CrearPropiedadContext(PropiedadporCrear)
       console.log('idpropietario al crear propiedad')
       console.log(rutlogin)
