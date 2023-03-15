@@ -37,13 +37,58 @@ const Navbarprin = () => {
         e.preventDefault();
         console.log('rut navbar logueado')
         console.log(rutlogin)
-        //console.log('hola')
+
+        const ObtenerUsuario = async () => {
+            const resp = await fetch(`https://backend-arriendo.up.railway.app/usuarios/gettipo`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(
+                        {
+                            "username": rutlogin,
+                            "password": password
+                        }
+                    ),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            const existeUsuario = await resp.json();
+            console.log('existeUsuario', existeUsuario)
+            if (existeUsuario.length > 0) {
+                alert('Registro existe')
+            }else{
+                alert('Usuario no existe')
+                return
+            }
+        }
+        ObtenerUsuario();
+
+        const ObtenerToken = async () => {
+            const resp = await fetch(`https://backend-arriendo.up.railway.app/auth`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(
+                        {
+                            "username": rutlogin,
+                            "password": password
+                        }
+                    ),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            const token = await resp.json();
+            console.log('token', token);
+            setSession(token);
+        }
+        ObtenerToken();
+
         const listaFiltradaPro = Propietarios.filter(el => el.rutPropietario === rutlogin)
         const listaFiltradaAlu = Alumnos.filter(el => el.rut === rutlogin)
         if (listaFiltradaPro.length > 0) {
             alert("La persona ya existe")
             navigate(`/vistapropietario/${rutlogin}`);
-            
+
         }
         else {
             if (listaFiltradaAlu.length > 0) {
@@ -51,7 +96,7 @@ const Navbarprin = () => {
                 navigate(`/vistaalumno/${rutlogin}`);
                 return
             }
-            else{
+            else {
                 alert("la persona no existe")
                 return
             }
@@ -67,14 +112,7 @@ const Navbarprin = () => {
         } else {
             alert("Email o contraseña incorrecta");
         }
-        /* if (rutlogin == '1')
-         {
-             navigate(`/vistapropietario/${rutlogin}`);
-         }
-         if (rutlogin == '2')
-         {
-             navigate(`/vistaalumno/${rutlogin}`);
-         }*/
+
     };
 
     return (
@@ -90,7 +128,7 @@ const Navbarprin = () => {
                             navbarScroll
                         >
                             <Nav.Link onClick={irABuscapropiedades} >Alojamientos</Nav.Link>
-                            
+
                             <Nav.Link onClick={irAHome} >Home</Nav.Link>
                         </Nav>
                         {/* onChange={(e) => setRutlogin(e.target.value)}*/}
