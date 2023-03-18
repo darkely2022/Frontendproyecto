@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,6 +21,8 @@ const Navbarprin = () => {
     const { setSession, Propietarios } = useContext(Context);
     const { setSessionAlumnos, Alumnos } = useContext(Context);
     const [user, setUser] = useState({});
+    const [tipo, setTipo] = useState('');
+    const { Usuarios, setUsuarios } = useContext(Context)
 
     const navigate = useNavigate();
     const irARegistro = () => {
@@ -33,7 +35,41 @@ const Navbarprin = () => {
         navigate(`/buscapropiedad`);
     };
 
+    useEffect(() => {
+        const fetchDatos = async () => {
+            const resp = await fetch(`https://backend-arriendo.up.railway.app/usuarios/gettipo`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(
+                        {
+                            "username": rutlogin,
+                            "password": password
+                        }
+                    ),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            const data = await resp.json();
+            setUsuarios(data);
+            console.log('user', Usuarios);
+            try {
+                const tipoid = Usuarios['usuarios']
+                const tipoid2 = tipoid[0]
+                // console.log('tipoid', tipoid);
+                // console.log('tipoid2', tipoid2);
+                setTipo(tipoid2);
+                return tipoid2
+            } catch (error) {
+                alert("Usuario no existe")
+                return
+            }
+        }
+        fetchDatos();
+    }, [])
+
     const irAVistaperfilada = (e) => {
+        let TipoUsuario;
         e.preventDefault();
         console.log('rut navbar logueado')
         console.log(rutlogin)
@@ -52,16 +88,30 @@ const Navbarprin = () => {
                         'Content-Type': 'application/json'
                     }
                 })
-            const existeUsuario = await resp.json();
-            console.log('existeUsuario', existeUsuario)
-            if (existeUsuario.length > 0) {
-                alert('Registro existe')
-            }else{
-                alert('Usuario no existe')
+            const data = await resp.json();
+            setUsuarios(data);
+            console.log('user', Usuarios);
+            try {
+                const tipoid = Usuarios['usuarios']
+                const tipoid2 = tipoid[0]
+                // console.log('tipoid', tipoid);
+                // console.log('tipoid2', tipoid2);
+                setTipo(tipoid2);
+                return tipoid2
+            } catch (error) {
+                alert("Usuario no existe")
+                //tipo['tipo_usuario_id'] =0
                 return
             }
+
+            /*  {Usuarios.map((dato) => (
+               setTipo(dato.tipo_usuario_id)
+            ))}
+          console.log(tipo);*/
         }
         ObtenerUsuario();
+
+        console.log('tipo', tipo)
 
         const ObtenerToken = async () => {
             const resp = await fetch(`https://backend-arriendo.up.railway.app/auth`,
@@ -80,29 +130,40 @@ const Navbarprin = () => {
             const token = await resp.json();
             console.log('token', token);
             setSession(token);
+            localStorage.setItem('token', token)
         }
+
+
         ObtenerToken();
+        //console.log('listado', Usuarios);
 
-        const listaFiltradaPro = Propietarios.filter(el => el.rutPropietario === rutlogin)
-        const listaFiltradaAlu = Alumnos.filter(el => el.rut === rutlogin)
-        if (listaFiltradaPro.length > 0) {
-            alert("La persona ya existe")
-            navigate(`/vistapropietario/${rutlogin}`);
 
-        }
-        else {
-            if (listaFiltradaAlu.length > 0) {
-                alert("la persona existe")
-                navigate(`/vistaalumno/${rutlogin}`);
-                return
+        // const listaFiltradaPro = Propietarios.filter(el => el.rutPropietario === rutlogin)
+        //const listaFiltradaAlu = Alumnos.filter(el => el.rut === rutlogin)
+        //if (listaFiltradaPro.length > 0) {
+        try {
+            if (tipo['tipo_usuario_id'] == 2) {
+                alert("La persona ya existe")
+                navigate(`/vistapropietario/${rutlogin}`);
+
             }
             else {
-                alert("la persona no existe")
-                return
+                //if (listaFiltradaAlu.length > 0) {
+                if (tipo['tipo_usuario_id'] == 1) {
+                    alert("la persona existe")
+                    navigate(`/vistaalumno/${rutlogin}`);
+                    return
+                }
+                else {
+                    alert("la persona no existe")
+                    return
+                }
             }
+        } catch (error) {
+            alert("No se encontraron datos para esta persona")
         }
 
-        const userExists =
+        /*const userExists =
             Propietarios.some((u) => u.rutPropietario == user.rutlogin && u.passwordPropietario == user.password) ||
             true;
         if (userExists) {
@@ -111,7 +172,7 @@ const Navbarprin = () => {
             navigate(`/vistapropietario/${rutlogin}`);
         } else {
             alert("Email o contraseña incorrecta");
-        }
+        }*/
 
     };
 
@@ -157,6 +218,8 @@ const Navbarprin = () => {
                                 }
                                 }
                             />
+
+
                             <Button onClick={irAVistaperfilada} variant="outline-success">Login</Button>
                         </Form>
                     </Navbar.Collapse>

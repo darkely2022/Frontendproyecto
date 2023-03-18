@@ -11,7 +11,7 @@ export default function Publicacion({
   const Reservar=()=>{
     console.log('props',t);
     if (t.value =='1'){
-      alert('puedes reservar')
+      alert('Reserva realizada')
     } 
     else
     {

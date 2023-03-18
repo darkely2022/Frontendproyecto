@@ -7,6 +7,7 @@ function Provider({ children }) {
   //const [publicaciones, setPublicaciones]= useState([]);
   const [Alumnos, setAlumnos] = useState([]);
   const [Propietarios, setPropietarios] = useState([])
+  const [Usuarios, setUsuarios] = useState([])
   const [session, setSession] = useState(null);
   const [sessionAlumnos, setSessionAlumnos] = useState(null);
 
@@ -85,7 +86,9 @@ function Provider({ children }) {
     setPublicaciones,
     Comunas,
     setComunas,
-    ListComunas
+    ListComunas,
+    Usuarios,
+    setUsuarios,
   };
   return <Context.Provider value={state}>{children}</Context.Provider>;
 }
